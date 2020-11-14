@@ -21,37 +21,48 @@ class App extends React.Component {
   constructor() {
     super();
 
-    this.state = { username: "", submitted: false };
+    this.state = { name: "", submitted: false, userData: {} };
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ submitted: true });
+
+    const randomNum = Math.ceil(Math.random() * 10000);
+    const userData = {
+      name: this.state.name,
+      id: randomNum,
+      online: true,
+      img: "https://talkjs.com/docs/img/ronald.jpg",
+    };
+
+    localStorage.setItem("currentUser", JSON.stringify(userData));
+
+    this.setState({ submitted: true, userData });
   };
 
   handleInputChange = (e) => {
-    this.setState({ username: e.target.value });
+    this.setState({ name: e.target.value });
   };
 
   render() {
-    const { username, submitted } = this.state;
+    const { name, submitted } = this.state;
 
     return (
       <main>
         <h1>Messenger Application</h1>
         {submitted ? (
-          <Chat />
+          <Chat name={name} />
         ) : (
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor='username'>Username:</label>
+            <label htmlFor='name'>Name:</label>
             <input
               type='text'
               onChange={this.handleInputChange}
-              placeholder='Please enter a username...'
+              placeholder='Please enter a name...'
               required
-              value={username}
-              name='username'
-              id='username'
+              value={name}
+              name='name'
+              id='name'
             />
             <button type='submit'>Submit</button>
           </form>
