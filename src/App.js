@@ -1,3 +1,7 @@
+import React from "react";
+
+import Chat from "./components/Chat";
+
 // Build a basic Messenger app.
 // Aim to spend no more than two hours on this task.
 // Focus on your strengths
@@ -13,9 +17,48 @@
 // 2. Talking to a backend.
 // 3. Multiple users.
 
-const App = () => {
-  // login functionality
-  return <div>HI</div>;
-};
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = { username: "", submitted: false };
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.setState({ submitted: true });
+  };
+
+  handleInputChange = (e) => {
+    this.setState({ username: e.target.value });
+  };
+
+  render() {
+    const { username, submitted } = this.state;
+
+    return (
+      <main>
+        <h1>Messenger Application</h1>
+        {submitted ? (
+          <Chat />
+        ) : (
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor='username'>Username:</label>
+            <input
+              type='text'
+              onChange={this.handleInputChange}
+              placeholder='Please enter a username...'
+              required
+              value={username}
+              name='username'
+              id='username'
+            />
+            <button type='submit'>Submit</button>
+          </form>
+        )}
+      </main>
+    );
+  }
+}
 
 export default App;
