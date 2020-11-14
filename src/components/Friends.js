@@ -1,19 +1,22 @@
 import { fakeUsers } from "../Users";
 
-const Friends = () => {
+import User from "./User";
+
+const Friends = ({ chatToUser }) => {
   return (
-    <section>
+    <section className='friends'>
       <ul>
-        {fakeUsers.map((user) => (
-          <li key={user.id}>
-            <img src={user.img} alt={user.name} />
-            <div className='user-info'>
-              <h4>{user.name}</h4>
-              <p>{user.online ? "online" : "offline"}</p>
-            </div>
-            <button>Message</button>
-          </li>
-        ))}
+        {fakeUsers.map((user) => {
+          const status = user.online ? "online" : "offline";
+          return (
+            <User
+              key={user.id}
+              user={user}
+              chatToUser={chatToUser}
+              onlineStatus={status}
+            />
+          );
+        })}
       </ul>
     </section>
   );

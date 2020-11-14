@@ -2,8 +2,8 @@ import React from "react";
 import Talk from "talkjs";
 
 import Friends from "./Friends";
-import MessageList from "./MessageList";
-import Input from "./Input";
+import Nav from "./Nav";
+import User from "./User";
 
 // The main chat window
 class Chat extends React.Component {
@@ -20,52 +20,61 @@ class Chat extends React.Component {
     this.state = { messages: [], currentUser };
   }
 
-  // componentDidMount() {
-  //   const currentUser = this.props.username;
-  //   Talk.ready.then(() => {
-  //     let me = new Talk.User({
-  //       id: currentUser.id,
-  //       name: currentUser.name,
-  //       email: currentUser.email,
-  //       photoUrl: currentUser.photo,
-  //       welcomeMessage: "Hey there! How are you? :-)",
-  //     });
+  handleChatToUser = (user) => {
+    const { currentUser } = this.state;
 
-  //     window.talkSession = new Talk.Session({
-  //       appId: "t39Gmw8k",
-  //       me: me,
-  //     });
-  //   });
-  // }
+    /* Session initialization code */
+    Talk.ready
+      .then(() => {
+        /* Create the two users that will participate in the conversation */
+        const me = new Talk.User(currentUser);
+        const friend = new Talk.User(user);
 
-  handleSendMessage = () => {};
+        /* Create a talk session if this does not exist */
+        if (!window.talkSession) {
+          window.talkSession = new Talk.Session({
+            appId: "t39Gmw8k",
+            me: me,
+          });
+        }
+
+        /* Get a conversation ID or create one */
+        const conversationId = Talk.oneOnOneId(me, friend);
+        const conversation = window.talkSession.getOrCreateConversation(
+          conversationId
+        );
+
+        /* Set participants of the conversations */
+        conversation.setParticipant(me);
+        conversation.setParticipant(friend);
+
+        /* Create and mount chatbox in container */
+        this.chatbox = window.talkSession.createChatbox(conversation);
+        this.chatbox.mount(this.container);
+      })
+      .catch((e) => console.error(e));
+  };
 
   render() {
     const { currentUser } = this.state;
 
     return (
-      <section>
-        <nav>
-          <a href='/friends'>My Friends</a>
-        </nav>
-
+      <>
+        <Nav />
         <section>
           {currentUser && (
-            <div>
-              <picture className='current-user-picture'>
-                <img alt={currentUser.name} src={currentUser.img} />
-              </picture>
-              <div className='current-user-info'>
-                <h3>{currentUser.name}</h3>
-                <p>{currentUser.online ? "online" : "offline"}</p>
-              </div>
-            </div>
+            <User user={currentUser} chatToUser={false} onlineStatus={true} />
           )}
         </section>
-        <Friends />
-        <MessageList messages={this.state.messages} />
-        <Input onSubmit={this.handleSendMessage} />
-      </section>
+        <section className='messenger-window'>
+          <Friends chatToUser={this.handleChatToUser} />
+          <div className='chatbox-container' ref={(c) => (this.container = c)}>
+            <div id='talkjs-container' style={{ height: "300px" }}>
+              <i></i>
+            </div>
+          </div>
+        </section>
+      </>
     );
   }
 }

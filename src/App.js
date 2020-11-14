@@ -1,6 +1,11 @@
 import React from "react";
+import { HashRouter as Router, Route } from "react-router-dom";
+
+import "./css/style.css";
 
 import Chat from "./components/Chat";
+import Home from "./components/Home";
+import Messaging from "./components/Messaging";
 
 // Build a basic Messenger app.
 // Aim to spend no more than two hours on this task.
@@ -17,59 +22,19 @@ import Chat from "./components/Chat";
 // 2. Talking to a backend.
 // 3. Multiple users.
 
-class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = { name: "", submitted: false, userData: {} };
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const randomNum = Math.ceil(Math.random() * 10000);
-    const userData = {
-      name: this.state.name,
-      id: randomNum,
-      online: true,
-      img: "https://talkjs.com/docs/img/ronald.jpg",
-    };
-
-    localStorage.setItem("currentUser", JSON.stringify(userData));
-
-    this.setState({ submitted: true, userData });
-  };
-
-  handleInputChange = (e) => {
-    this.setState({ name: e.target.value });
-  };
-
-  render() {
-    const { name, submitted } = this.state;
-
-    return (
-      <main>
-        <h1>Messenger Application</h1>
-        {submitted ? (
-          <Chat name={name} />
-        ) : (
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor='name'>Name:</label>
-            <input
-              type='text'
-              onChange={this.handleInputChange}
-              placeholder='Please enter a name...'
-              required
-              value={name}
-              name='name'
-              id='name'
-            />
-            <button type='submit'>Submit</button>
-          </form>
-        )}
-      </main>
-    );
-  }
-}
+const App = () => {
+  return (
+    <main>
+      <Router>
+        <header className='main-header'>
+          <h1>Messenger Application</h1>
+        </header>
+        <Route path='/' exact component={Home} />
+        <Route path='/friends' component={Chat} />
+        <Route path='/messaging' component={Messaging} />
+      </Router>
+    </main>
+  );
+};
 
 export default App;
