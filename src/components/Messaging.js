@@ -22,12 +22,10 @@ class Messaging extends React.Component {
       .then(() => {
         const me = new Talk.User(this.state.currentUser);
 
-        if (!window.talkSession) {
-          window.talkSession = new Talk.Session({
-            appId: "t39Gmw8k",
-            me: me,
-          });
-        }
+        window.talkSession = new Talk.Session({
+          appId: "t39Gmw8k",
+          me: me,
+        });
 
         this.inbox = window.talkSession.createInbox();
         this.inbox.mount(this.container);

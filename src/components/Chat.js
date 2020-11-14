@@ -30,13 +30,11 @@ class Chat extends React.Component {
         const me = new Talk.User(currentUser);
         const friend = new Talk.User(user);
 
-        /* Create a talk session if this does not exist */
-        if (!window.talkSession) {
-          window.talkSession = new Talk.Session({
-            appId: "t39Gmw8k",
-            me: me,
-          });
-        }
+        /* Create a talk session  */
+        window.talkSession = new Talk.Session({
+          appId: "t39Gmw8k",
+          me: me,
+        });
 
         /* Get a conversation ID or create one */
         const conversationId = Talk.oneOnOneId(me, friend);
@@ -84,3 +82,4 @@ export default Chat;
 // Added post 2 hours:
 // 'logout' functionality
 // styling homepage
+// bugfix with talk session remaining when user changed
