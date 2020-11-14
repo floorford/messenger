@@ -4,6 +4,7 @@ const Nav = () => {
   const clearSessionStorage = () => {
     localStorage.removeItem("currentUser");
   };
+
   return (
     <nav>
       <ul>

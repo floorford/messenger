@@ -38,6 +38,7 @@ class Messaging extends React.Component {
       <>
         <Nav />
 
+        {/* talkjs looks for this ref to render its prebuilt chat box */}
         <div
           style={{ height: "500px" }}
           className='inbox-container'

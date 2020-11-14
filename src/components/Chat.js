@@ -10,6 +10,7 @@ class Chat extends React.Component {
   constructor() {
     super();
 
+    // gets current user object from local storage
     let currentUser;
     const currentStoredUser = localStorage.getItem("currentUser");
 
@@ -59,13 +60,18 @@ class Chat extends React.Component {
     return (
       <>
         <Nav />
+        {/* user display */}
         <section>
           {currentUser && (
             <User user={currentUser} chatToUser={false} onlineStatus={true} />
           )}
         </section>
+
+        {/* friends list and a chat box */}
         <section className='messenger-window'>
           <Friends chatToUser={this.handleChatToUser} />
+
+          {/* talkjs looks for this ref to render its prebuilt chat box */}
           <div className='chatbox-container' ref={(c) => (this.container = c)}>
             <div id='talkjs-container' style={{ height: "300px" }}>
               <i></i>
@@ -78,8 +84,3 @@ class Chat extends React.Component {
 }
 
 export default Chat;
-
-// Added post 2 hours:
-// 'logout' functionality
-// styling homepage
-// bugfix with talk session remaining when user changed
