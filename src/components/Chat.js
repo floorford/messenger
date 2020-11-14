@@ -80,3 +80,7 @@ class Chat extends React.Component {
 }
 
 export default Chat;
+
+// Added post 2 hours:
+// 'logout' functionality
+// styling homepage

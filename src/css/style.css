@@ -90,7 +90,42 @@ img {
   padding: 0.5rem;
 }
 
-.user-info button {
+button {
   display: block;
   padding: 1rem;
+  background-color: rgba(226, 129, 105, 0.69);
+  border: 1px solid rgba(187, 110, 74, 0.15);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(226, 129, 105);
+}
+
+button:disabled {
+  background-color: rgb(218, 174, 163);
+}
+
+form {
+  margin: 2rem;
+}
+
+input {
+  margin: 0.5rem 0;
+  outline: 0;
+  -webkit-appearance: none;
+  line-height: 1.21428571em;
+  padding: 0.67857143em 1em;
+  font-size: 1em;
+  color: black;
+  border-radius: 5px;
+  width: 50%;
+  background-color: rgba(226, 129, 105, 0.15);
+  border: 1px solid rgba(187, 110, 74, 0.15);
+}
+
+label {
+  display: block;
+  margin: 0.5rem 0;
 }

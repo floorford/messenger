@@ -35,6 +35,7 @@ class Home extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
+        <h3>Profile Creation</h3>
         <label htmlFor='name'>Name:</label>
         <input
           type='text'
@@ -45,7 +46,9 @@ class Home extends React.Component {
           name='name'
           id='name'
         />
-        <button type='submit'>Submit</button>
+        <button type='submit' disabled={!name.length ? true : ""}>
+          Submit
+        </button>
       </form>
     );
   }
