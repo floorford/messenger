@@ -30,8 +30,9 @@ You will be given a task to refactor or improve it.
 - Responsive design
 - An actual backend:
   - User creation and login
-  - Ability to send messages to other users not just dummy it
-- Persistance of data when 'logging' back in as same useer
+  - Profile modification
+  - Ability to talk to another user, not just message something that won't reply
+- Persistance of data when 'logging' back in as same user
 
 # Getting Started with Create React App
 
