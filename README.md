@@ -31,8 +31,10 @@ You will be given a task to refactor or improve it.
 - An actual backend:
   - User creation and login
   - Profile modification
+  - Status updating
   - Ability to talk to another user, not just message something that won't reply
 - Persistance of data when 'logging' back in as same user
+- Switch statement and 404 page for react router
 
 # Getting Started with Create React App
 
